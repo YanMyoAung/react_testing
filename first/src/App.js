@@ -35,7 +35,7 @@ class App extends React.Component{
         <ul>
           { this.state.items.map( n => {
             return (
-              <Item name={n.name} price={n.price}></Item>
+              <Item key={n.id} name={n.name} price={n.price}></Item>
             )
           })}
         </ul>
