@@ -10,6 +10,28 @@ class Item extends React.Component{
   }
 }
 
+class AddForm extends React.Component{
+
+  nameRef = React.createRef();
+  priceRef = React.createRef();
+
+  add = () => {
+    let name = this.nameRef.current.value;
+    let price = this.priceRef.current.value;
+
+    this.props.add_val(name,price);
+  }
+  render(){
+    return(
+      <div>
+      <input type="text" ref={this.nameRef} /><br />
+      <input type="text" ref={this.priceRef} /><br />
+      <button onClick={this.add}>Add</button>
+      </div>
+    )
+  }
+}
+
 class App extends React.Component{
   state = {
     items : [
@@ -18,12 +40,12 @@ class App extends React.Component{
     ]
   }
 
-  add = () => {
+  add = (name,price) => {
     let id = this.state.items.length + 1;
     this.setState({
       items : [
         ...this.state.items,
-        { id , name : `Item ${id}` , price : 1 * id }
+        { id , name, price }
       ]
     })
   }
@@ -39,10 +61,11 @@ class App extends React.Component{
             )
           })}
         </ul>
-        <button onClick={this.add}>Add</button>
+        <AddForm add_val={this.add}></AddForm>
       </div>
     );
   }
 }
+
 
 export default App;
